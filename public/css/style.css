@@ -1,0 +1,22 @@
+body{
+    background: #Edf2f6;
+  }
+  .badge {
+    padding: 6px;
+    font-size: 12px;
+    box-shadow: none;
+  }
+  .btn{
+    font-size: 14px;
+  }
+  .btn-theme {
+      color: #fff;
+      background-color: #7f03fc !important;
+  }
+  .btn-theme:hover{
+      color: #fff !important;
+  }
+
+  .card-theme{
+    border-radius: 5%;
+  }
