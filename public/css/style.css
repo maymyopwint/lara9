@@ -17,6 +17,12 @@ body{
       color: #fff !important;
   }
 
+  .btn-save{
+    color: #fff;
+    background-color: #008080 !important;
+  }
+
   .card-theme{
     border-radius: 5%;
   }
+

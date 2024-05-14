@@ -9,12 +9,16 @@
              </div>
             <div class="card card-theme">
                 <div class="card-body">
+                    <h5 class="text-center">Login</h5>
+                    <p class="text-muted text-center">Please fill the login form</p>
+
+                    @if(session()->has('message'))
+                        <p class="alert alert-info">
+                            {{ session()->get('message') }}
+                        </p>
+                    @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
-                        <h5 class="text-center">Login</h5>
-                        <p class="text-muted text-center">Please fill the login form</p>
-
                         <div class="mt-2">
                             <label for="" class="form-label">Email</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required  autofocus>
