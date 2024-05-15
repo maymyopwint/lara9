@@ -55,6 +55,7 @@
 
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    @yield('styles')
     <!-- Page CSS -->
     <!-- Helpers -->
     <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
@@ -84,20 +85,6 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
-              </div>
-              <!-- /Search -->
-
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
@@ -220,6 +207,7 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
     <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
@@ -235,7 +223,7 @@
 
     <!-- Page JS -->
     <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-
+    @yield('scripts')
     <!-- Place this tag in your head or just before your close body tag. -->
     {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
   </body>

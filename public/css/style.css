@@ -9,7 +9,7 @@ body{
   .btn{
     font-size: 14px;
   }
-  .btn-theme {
+  .btn-theme{
       color: #fff;
       background-color: #7f03fc !important;
   }
@@ -21,8 +21,10 @@ body{
     color: #fff;
     background-color: #008080 !important;
   }
-
   .card-theme{
     border-radius: 5%;
   }
+  .icon-color {
+    color: #696cff;
+}
 

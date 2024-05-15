@@ -31,7 +31,7 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            <button class="btn mt-3 btn-success" type="submit">
+                            <button class="btn mt-3 btn-theme" type="submit">
                                 {{ trans('global.save') }}
                             </button>
                         </div>
@@ -65,7 +65,7 @@
                                 id="password_confirmation" required>
                         </div>
                         <div class="form-group">
-                            <button class="btn mt-3 btn-success" type="submit">
+                            <button class="btn mt-3 btn-theme" type="submit">
                                 {{ trans('global.save') }}
                             </button>
                         </div>

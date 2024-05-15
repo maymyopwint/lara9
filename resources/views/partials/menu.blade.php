@@ -80,27 +80,26 @@
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Pages</span>
       </li>
-
       {{-- User Management --}}
-      <li class="menu-item">
+      <li class="menu-item {{ request()->is('admin/permissions*') ? 'active open' : '' }} {{ request()->is('admin/roles*') ? 'active open' : '' }} {{ request()->is('admin/users*') ? 'active open' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-dock-top"></i>
           <div data-i18n="Account Settings">{{ trans('cruds.userManagement.title') }}</div>
         </a>
         <ul class="menu-sub">
-          <li class="menu-item">
-            <a href="#" class="menu-link">
+          <li class="menu-item {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
+            <a href="{{ route('admin.permissions.index') }}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
               <div data-i18n="Account"> {{ trans('cruds.permission.title') }}</div>
             </a>
           </li>
-          <li class="menu-item">
-            <a href="#" class="menu-link">
+          <li class="menu-item {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
+            <a href="{{ route('admin.roles.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-briefcase-alt-2"></i>
               <div data-i18n="Notifications">{{ trans('cruds.role.title') }}</div>
             </a>
           </li>
-          <li class="menu-item">
+          <li class="menu-item {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
             <a href="{{ route('admin.users.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
               <div data-i18n="Connections"> {{ trans('cruds.user.title') }}</div>
@@ -108,5 +107,6 @@
           </li>
         </ul>
       </li>
+
     </ul>
   </aside>

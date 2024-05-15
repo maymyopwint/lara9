@@ -31,6 +31,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // User
     Route::resource('users', 'UserController');
+
+    // Role
+    Route::resource('roles', 'RolesController');
+
+    //Permissions
+    Route::resource('permissions', 'PermissionsController');
 });
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {

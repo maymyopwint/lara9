@@ -62,14 +62,14 @@
 /* .bg-menu-theme .menu-horizontal-wrapper > .menu-inner > .menu-item > .menu-sub > .menu-item > .menu-link:before {
   display: none;
 } */
-/* .bg-menu-theme .menu-sub > .menu-item.active > .menu-link:not(.menu-toggle):before {
+.bg-menu-theme .menu-sub > .menu-item.active > .menu-link:not(.menu-toggle):before {
   left: 1.1875rem;
   width: 0.875rem;
   height: 0.875rem;
 }
 .layout-horizontal .bg-menu-theme .menu-sub > .menu-item.active > .menu-link:not(.menu-toggle):before {
   left: 1.1rem;
-} */
+}
 
 .layout-menu-hover .layout-menu {
   box-shadow: 0 0.625rem 1.25rem rgba(161, 172, 184, 0.5);

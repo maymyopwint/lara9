@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\StorePermissionRequest;
+use App\Http\Requests\UpdatePermissionRequest;
 
-class UserController extends Controller
+class PermissionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        $firstItem = $users->firstItem();
-        return view('admin.users.index',[
-            'users' => $users,
+        $permissions = Permission::paginate(10);
+        $firstItem = $permissions->firstItem();
+        return view('admin.permissions.index',[
+            'permissions' => $permissions,
              'firstItem' => $firstItem
         ]);
     }
@@ -31,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.permissions.create');
     }
 
     /**
@@ -40,11 +41,11 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(StorePermissionRequest $request)
     {
-        // dd($request->all());
-        $user = User::create($request->all());
-        return redirect()->route('admin.users.index');
+        $permission = Permission::create($request->all());
+
+        return redirect()->route('admin.permissions.index');
     }
 
     /**
@@ -55,9 +56,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        return view('admin.users.show',[
-            'user' => $user
+        $permission = Permission::find($id);
+        return view('admin.permissions.show',[
+            'permission' => $permission
         ]);
     }
 
@@ -69,9 +70,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('admin.users.edit',[
-            'user' => $user
+        $permission = Permission::find($id);
+        return view('admin.permissions.edit',[
+            'permission' => $permission
         ]);
     }
 
@@ -82,9 +83,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePermissionRequest $request, Permission $permission)
     {
-        //
+        $permission->update($request->all());
+
+        return redirect()->route('admin.permissions.index');
     }
 
     /**
@@ -93,10 +96,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        $user = User::find($id);
-        $user->delete();
-        return redirect()->route('admin.users.index');
+        $permission->delete();
+        return redirect()->route('admin.permissions.index');
     }
 }
