@@ -1,19 +1,20 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="row" style="margin-bottom: 10px;">
-        <div class="col-lg-12 d-flex justify-content-end">
-            <div style="padding: 30px; padding-top: 0 !important; padding-bottom: 0 !important;">
-                <a class="btn btn-theme" href="{{ route('admin.users.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
-                </a>
+    @can('user_create')
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-lg-12 d-flex justify-content-end">
+                <div style="padding: 30px; padding-top: 0 !important; padding-bottom: 0 !important;">
+                    <a class="btn btn-theme" href="{{ route('admin.users.create') }}">
+                        {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-
+    @endcan
     <div class="card">
       <h5 class="card-header">User List</h5>
       <div class="table-responsive">
-        <table class="table">
+        <table class="table datatable">
           <thead>
             <tr>
                 <th>
@@ -43,14 +44,23 @@
                 <td>{{$user->name ?? '' }}</td>
                 <td>{{$user->email ?? '' }}</td>
                 <td>{{$user->email_verified_at ?? '' }}</td>
-                <td></td>
                 <td>
+                    @foreach($user->roles as $key => $item)
+                        <span class="badge bg-primary">{{ $item->title }}</span>
+                    @endforeach
+                </td>
+                <td>
+                    @can('user_show')
                     <a class="me-2" href="{{ route('admin.users.show', $user->id) }}"
                         ><i class="bx bx-show-alt me-1"></i></a
                         >
+                    @endcan
+                    @can('user_edit')
                     <a class="me-2" href="{{ route('admin.users.edit', $user->id) }}"
                         ><i class="bx bx-edit-alt me-1"></i></a
                     >
+                    @endcan
+                    @can('user_delete')
                     <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                         @csrf
                         @method('DELETE')
@@ -58,12 +68,12 @@
                             <i class="bx bx-trash me-1 icon-color"></i>
                         </button>
                     </form>
+                    @endcan
                   </td>
             </tr>
             @endforeach
           </tbody>
         </table>
-        {{ $users->links('pagination::bootstrap-5') }}
       </div>
     </div>
 @endsection

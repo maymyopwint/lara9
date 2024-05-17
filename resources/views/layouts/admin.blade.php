@@ -50,6 +50,12 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}">
     {{-- <link rel="stylesheet" href="../../../../assets/css/demo.css" /> --}}
 
+    <!-- Select 2 -->
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}">
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatable/dataTable.css')}}">
+
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
@@ -212,6 +218,13 @@
     <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
 
+    <!-- Select2 -->
+    <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+
+    <!-- DataTables -->
+    <script src="{{asset('assets/vendor/libs/datatable/dataTable.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/datatable/dataTable.bootstrap.js')}}"></script>
+
     <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
     <!-- endbuild -->
 
@@ -226,5 +239,20 @@
     @yield('scripts')
     <!-- Place this tag in your head or just before your close body tag. -->
     {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
+    <script>
+        $('.select-all').click(function () {
+            let $select2 = $(this).parent().siblings('.select2')
+            $select2.find('option').prop('selected', 'selected')
+            $select2.trigger('change')
+        })
+        $('.deselect-all').click(function () {
+            let $select2 = $(this).parent().siblings('.select2')
+            $select2.find('option').prop('selected', '')
+            $select2.trigger('change')
+        })
+
+        $('.select2').select2()
+        new DataTable('.datatable');
+    </script>
   </body>
 </html>

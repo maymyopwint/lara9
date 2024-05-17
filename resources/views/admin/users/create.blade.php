@@ -33,6 +33,29 @@
                 <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
             </div>
             <div class="form-group mt-3">
+                <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-primary btn-xs select-all"
+                        style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-primary btn-xs deselect-all"
+                        style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}"
+                    name="roles[]" id="roles" multiple="multiple" required>
+                    @foreach ($roles as $id => $role)
+                        <option value="{{ $id }}"
+                            {{ in_array($id, old('roles', [])) ? 'selected' : '' }}>{{ $role }}
+                        </option>
+                    @endforeach
+                </select>
+                @if ($errors->has('roles'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('roles') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
+            </div>
+            <div class="form-group mt-3">
                 <button class="btn btn-theme" type="submit">
                     {{ trans('global.save') }}
                 </button>

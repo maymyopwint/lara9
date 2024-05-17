@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Gate;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -16,7 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $users = User::with('roles')->paginate(10);
         $firstItem = $users->firstItem();
         return view('admin.users.index',[
             'users' => $users,
@@ -31,7 +36,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $roles = Role::pluck('title', 'id');
+        return view('admin.users.create',[
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -44,6 +54,7 @@ class UserController extends Controller
     {
         // dd($request->all());
         $user = User::create($request->all());
+        $user->roles()->sync($request->input('roles', []));
         return redirect()->route('admin.users.index');
     }
 
@@ -55,9 +66,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $user = User::find($id);
+        $roles = Role::pluck('title', 'id');
+        $user->load('roles');
         return view('admin.users.show',[
-            'user' => $user
+            'user' => $user,
+            'roles' => $roles
         ]);
     }
 
@@ -69,9 +85,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $user = User::find($id);
+        $roles = Role::pluck('title', 'id');
+
+        $user->load('roles');
         return view('admin.users.edit',[
-            'user' => $user
+            'user' => $user,
+            'roles' => $roles
         ]);
     }
 
@@ -82,9 +104,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->update($request->all());
+        $user->roles()->sync($request->input('roles', []));
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -95,6 +120,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $user = User::find($id);
         $user->delete();
         return redirect()->route('admin.users.index');

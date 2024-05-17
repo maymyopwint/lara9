@@ -27,4 +27,16 @@ body{
   .icon-color {
     color: #696cff;
 }
+.select2 {
+    max-width: 100%;
+    width: 100% !important;
+}
 
+.select2-selection__rendered {
+    padding-bottom: 5px !important;
+}
+
+.form-group .required::after {
+    content: " *";
+    color: red;
+}

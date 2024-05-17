@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Gate;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Support\Str;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class RolesController extends Controller
 {
@@ -19,6 +21,8 @@ class RolesController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $roles = Role::with('permissions')->paginate(10);
         $firstItem = $roles->firstItem();
         return view('admin.roles.index',[
@@ -34,6 +38,8 @@ class RolesController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $permissions = Permission::all();
         $groupedPermissions = $permissions->groupBy(function($permission) {
             return Str::before($permission->title, '_');
@@ -65,6 +71,8 @@ class RolesController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('role_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $role = Role::find($id);
         $permissions = Permission::all();
         $groupedPermissions = $permissions->groupBy(function($permission) {
@@ -84,6 +92,8 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $role = Role::find($id);
         $permissions = Permission::all();
         $groupedPermissions = $permissions->groupBy(function($permission) {
@@ -118,8 +128,9 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
+        abort_if(Gate::denies('role_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $role->delete();
         return back();
     }
 }
